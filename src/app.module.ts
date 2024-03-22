@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
+import { GptModule } from './gpt/gpt.module';
 
 
-@Module({})
+@Module({
+  imports: [GptModule]
+})
 export class AppModule {}
