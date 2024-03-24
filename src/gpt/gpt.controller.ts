@@ -7,9 +7,7 @@ export class GptController {
   constructor(private readonly gptService: GptService) {}
 
   @Post('orthography-check')
-  ortographyCheck(
-    @Body() orthographyDto: OrthographyDto,
-  ) {
+  ortographyCheck(@Body() orthographyDto: OrthographyDto) {
     return this.gptService.ortographyCheck(orthographyDto);
   }
 }

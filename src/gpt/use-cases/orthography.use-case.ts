@@ -1,19 +1,20 @@
-import OpenAI from "openai";
-
+import OpenAI from 'openai';
 
 interface Options {
-    prompt: string;
+  prompt: string;
 }
 
-export const orthographyCheckUseCase = async(openai: OpenAI,options: Options) => {
+export const orthographyCheckUseCase = async (
+  openai: OpenAI,
+  options: Options,
+) => {
+  const { prompt } = options;
 
-    const { prompt } = options;
-
-    const completion = await openai.chat.completions.create({
-        messages: [
-            { 
-                role: "system", 
-                content: `
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {
+        role: 'system',
+        content: `
                 Te serán proveidos textos en españool  con posibles errores ortográficos y gramaticales,
                 las palabras usadas deben existir en el diccionario de la RAE,
                 Debes de responder en formato JSON,
@@ -29,22 +30,22 @@ export const orthographyCheckUseCase = async(openai: OpenAI,options: Options) =>
                     message: string // Usa emojis y texto para felicitar al usuario
                 }
                 
-                `
-            }, 
-            { 
-                role: "user", 
-                content: prompt
-            }
-        ],
-        model: "gpt-3.5-turbo",
-        max_tokens: 150,
-        temperature: 0.3,
-        
-    });
+                `,
+      },
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ],
+    model: 'gpt-3.5-turbo',
+    max_tokens: 150,
+    temperature: 0.3,
+    response_format: {
+      type: 'json_object',
+    },
+  });
 
-    console.log(completion);
+  const jsonParse = JSON.parse(completion.choices[0].message.content);
 
-    return completion.choices[0];
-
-
-}
+  return jsonParse;
+};
