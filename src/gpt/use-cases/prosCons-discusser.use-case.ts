@@ -27,10 +27,7 @@ export const prosConsDicusserUseCase = async (
       ],
       model: 'gpt-3.5-turbo',
       max_tokens: 500,
-      temperature: 0.3,
-    //   response_format: {
-    //     type: 'json_object',
-    //   },
+      temperature: 0.8,
     });
 
     return completion.choices[0].message;
