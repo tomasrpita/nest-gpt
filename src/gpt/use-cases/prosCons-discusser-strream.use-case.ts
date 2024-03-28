@@ -4,13 +4,13 @@ interface Options {
   prompt: string;
 }
 
-export const prosConsDicusserUseCase = async (
+export const prosConsDicusserStreamUseCase = async (
   openai: OpenAI,
   options: Options,
 ) => {
   const { prompt } = options;
 
-  const completion = await openai.chat.completions.create({
+  return await openai.chat.completions.create({
     messages: [
       {
         role: 'system',
@@ -25,10 +25,9 @@ export const prosConsDicusserUseCase = async (
         content: prompt,
       },
     ],
+    stream: true,
     model: 'gpt-3.5-turbo',
     max_tokens: 500,
     temperature: 0.8,
   });
-
-  return completion.choices[0].message;
 };
