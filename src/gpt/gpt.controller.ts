@@ -42,5 +42,4 @@ export class GptController {
   async translate(@Body() translateDto: TranslateDto) {
     return this.gptService.translate(translateDto);
   }
-
 }

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 
 import { OpenAI } from 'openai';
@@ -35,12 +34,9 @@ export class GptService {
   }
 
   async translate({ prompt, lang }: TranslateDto) {
-    return await translateUseCase(
-      this.openai,
-      {
-        prompt, lang
+    return await translateUseCase(this.openai, {
+      prompt,
+      lang,
     });
   }
 }
-
-
