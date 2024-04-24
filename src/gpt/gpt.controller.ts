@@ -13,9 +13,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { GptService } from './gpt.service';
-import { OrthographyDto, ProsConsDiscusserDto, TextToAudioDto } from './dtos';
+import {
+  OrthographyDto,
+  ProsConsDiscusserDto,
+  TextToAudioDto,
+  AudioToTextDto,
+  TranslateDto,
+} from './dtos';
 import { Response } from 'express';
-import { TranslateDto } from './dtos/translate.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
@@ -108,8 +113,8 @@ export class GptController {
       }),
     )
     file: Express.Multer.File,
+    @Body() audioToTextDto: AudioToTextDto,
   ) {
-    // console.log(file);
-    return this.gptService.audioToText(file);
+    return this.gptService.audioToText(file, audioToTextDto);
   }
 }
