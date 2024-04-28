@@ -28,7 +28,8 @@ export const imageGenerationUseCase = async (
     });
 
     // Guardar la imagen en FS.
-    const url = downloadImageAsPng(response.data[0].url);
+    const fileName = await downloadImageAsPng(response.data[0].url);
+    const url = `${process.env.SERVER_URL}/gpt/image-generation/${fileName}`;
 
     // console.log(response);
 
@@ -54,13 +55,11 @@ export const imageGenerationUseCase = async (
     response_format: 'url',
   });
 
-  const localImagePath = await downloadImageAsPng(response.data[0].url);
-  const fileName = path.basename(localImagePath);
-
-  const publicUrl = `localhost:3000/${fileName}`;
+  const fileName = await downloadImageAsPng(response.data[0].url);
+  const url = `${process.env.SERVER_URL}/gpt/image-generation/${fileName}`;
 
   return {
-    url: publicUrl, //TODO: http://localhost:3000/gpt/image-generation/1703770602518,png
+    url: url, //TODO: http://localhost:3000/gpt/image-generation/1703770602518,png
     OpenAIUrl: response.data[0].url,
     revised_prompt: response.data[0].revised_prompt,
   };
