@@ -24,13 +24,13 @@ export const imageGenerationUseCase = async (
   });
 
   // Guardar la imagen en FS.
-  downloadImageAsPng(response.data[0].url);
+  const url = downloadImageAsPng(response.data[0].url);
 
   console.log(response);
 
   return {
-    url: response.data[0].url,
-    localPath: '',
+    url: url,
+    OpenAIUrl: response.data[0].url,
     revised_prompt: response.data[0].revised_prompt,
   };
 };
