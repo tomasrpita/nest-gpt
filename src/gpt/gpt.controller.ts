@@ -20,6 +20,7 @@ import {
   AudioToTextDto,
   TranslateDto,
   ImageGenerationDto,
+  ImageVariationDto,
 } from './dtos';
 import { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -134,5 +135,10 @@ export class GptController {
     res.setHeader('Content-Type', 'image/png');
     res.status(HttpStatus.OK);
     res.sendFile(filePath);
+  }
+
+  @Post('image-variation')
+  async imageVariation(@Body() imageVariationDto: ImageVariationDto) {
+    return this.gptService.generateImageVariation(imageVariationDto);
   }
 }
