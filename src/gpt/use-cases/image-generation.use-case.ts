@@ -59,7 +59,7 @@ export const imageGenerationUseCase = async (
   const url = `${process.env.SERVER_URL}/gpt/image-generation/${fileName}`;
 
   return {
-    url: url, //TODO: http://localhost:3000/gpt/image-generation/1703770602518,png
+    url: url,
     OpenAIUrl: response.data[0].url,
     revised_prompt: response.data[0].revised_prompt,
   };
