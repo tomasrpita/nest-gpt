@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
-import { createMessageUseCase, createThreadUseCase } from './use-cases';
+import {
+  createMessageUseCase,
+  createRunUseCase,
+  createThreadUseCase,
+} from './use-cases';
 import { QuestionDto } from './dtos';
 
 @Injectable()
@@ -14,7 +18,13 @@ export class SamAssistantService {
   }
 
   async userQuestion(questionDto: QuestionDto) {
-    const message = await createMessageUseCase(this.openai, questionDto);
-    console.log({ message });
+    const { threadId, question } = questionDto;
+
+    const message = await createMessageUseCase(this.openai, {
+      threadId,
+      question,
+    });
+
+    const run = await createRunUseCase(this.openai, { threadId });
   }
 }
