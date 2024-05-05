@@ -13,6 +13,6 @@ export class SamAssistantController {
 
   @Post('user-question')
   async userQuestion(@Body() questionDto: QuestionDto) {
-    return questionDto;
+    return await this.samAssistantService.userQuestion(questionDto);
   }
 }
