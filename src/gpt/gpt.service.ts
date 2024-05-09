@@ -13,6 +13,7 @@ import {
   textToAudioUseCase,
   translateUseCase,
   imageVariationUseCase,
+  imageToTextUseCase,
 } from './use-cases';
 
 import {
@@ -108,5 +109,9 @@ export class GptService {
 
   async generateImageVariation({ baseImage }: ImageVariationDto) {
     return imageVariationUseCase(this.openai, { baseImage });
+  }
+
+  async imageToText(imageFile: Express.Multer.File, prompt: string) {
+    return await imageToTextUseCase(this.openai, { imageFile, prompt });
   }
 }
